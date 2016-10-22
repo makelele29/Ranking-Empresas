@@ -1,0 +1,11 @@
+extends layout
+block content
+  h1=title
+  form(action='/iniciar',method='post')
+    label(for='dni')
+      input(type='number', id=dni,name='dni',placeholder='DNI',class='input')
+    label(for='clave')
+      input(type='password', id=clave,name='clave',placeholder='Contraseña',class='input')
+    button(type='submit') Login
+  form(action='/inscribirAlumno',method='get')
+    button(type='submit') Registate

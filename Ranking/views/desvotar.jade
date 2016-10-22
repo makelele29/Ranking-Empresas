@@ -1,0 +1,14 @@
+extends layout
+block content
+  h1=title
+
+  h2 Usted ha iniciado sesión con <b> #{nombre} </b>
+    form(action='/logout', method='get')
+      button(type='submit') Logout
+  form(action='/descontarVoto', method='post')
+    label(for='txtEmpresa')
+      select(id="id", name="id")
+          each e, i in empresas
+            option(value=e.id_empresa)= e.nombre
+
+    button(type='submit') Eliminar voto

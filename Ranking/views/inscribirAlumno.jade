@@ -1,0 +1,16 @@
+extends layout
+block content
+  h1=title
+  div
+    form(action='/addAlumno',method='post')
+      label(for='dni')
+        input(type='number', id=dni,name='dni',placeholder='DNI',class='input')
+      label(for='nombre')
+        input(type='text', id=nombre,name='nombre',placeholder='Nombre',class='input')
+      label(for='apellidos')
+        input(type='text', id=apellidos,name='apellidos',placeholder='Apellidos',class='input')
+      label(for='email')
+        input(type='email', id=email,name='email',placeholder='Correo electronico',class='input')
+      label(for='clave')
+        input(type='password', id=clave,name='clave',placeholder='Clave',class='input')
+      button(type='submit') Incribirse
