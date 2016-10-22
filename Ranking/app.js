@@ -8,6 +8,7 @@ var mysql = require('mysql');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var session = require('express-session');
+var assert = require('assert');
 
 var app = express();
 
@@ -26,27 +27,32 @@ app.use('/', routes);
 app.use('/users', users);
 
 //-----------------------------------------------------------------------------------------------------------------------------------------
-
+// Función get para ver el jade inscribirAlumno.jade
 app.get('/inscribirAlumno', function(req, res){
   res.render('inscribirAlumno', { title:'Registrar Alumno' });
 });
+//-----------------------------------------------------------------------------------------------------------------------------------------
+// Función get para ver el jade clasificacion.jade
 app.get('/clasificacion', function(req, res){
   var bd=BD();
   bd.query("SELECT nombre,puntuacion FROM vista_Calificaciones",function(error,resultado,fila){
-    if(!error){
-      if(resultado.length> 0){
-        res.render('clasificacion', { title:'Ranking de empresas' ,empresas:resultado});
-      }
+		assert.ok(error,"Error en el select de vista_calificaciones");
+    assert.notEqual(resultado,0,"No hay ningun resultado");
+    res.render('clasificacion', { title:'Ranking de empresas' ,empresas:resultado});
+
     }
   });
 
 });
-
+//-----------------------------------------------------------------------------------------------------------------------------------------
+// Función get para ver el jade inscribirEmpresa.jade
 app.get('/inscribirEmpresa', function(req, res){
   res.render('inscribirEmpresa', { title:'Añade tu empresa' });
 });
+//-----------------------------------------------------------------------------------------------------------------------------------------
+// Función get para ver el jade votar.jade o desvotar.jade si ha iniciado login previamente
 app.get('/votos',function(req,res){
-  console.log(req.param('id'));
+
   if(req.param('id')==0){
     session.pagina="/votar";
     res.redirect("/votar");
@@ -56,59 +62,56 @@ app.get('/votos',function(req,res){
   }
 
 });
+//-----------------------------------------------------------------------------------------------------------------------------------------
+// Función get para ver el jade votar.jade
 app.get('/votar', login,function(req, res){
     var bd=BD();
     bd.query("SELECT id_empresa,nombre FROM EMPRESAS",function(error,resultado,fila){
-      if(!error){
-        if(resultado.length > 0)
-          res.render('votar', { title:'Vota a tu empresa',nombre:session.nombre,empresas:resultado});
-      }else{
-        res.send("Hubo un error en las empresas");
-
-      }
+      assert.ok(error,"Error en el select de empresas");
+      assert.notEqual(resultado,0,"No hay ningun resultado");
+      res.render('votar', { title:'Vota a tu empresa',nombre:session.nombre,empresas:resultado});
     });
 
 });
+//-----------------------------------------------------------------------------------------------------------------------------------------
+// Función get para ver el jade desvotar.jade
 app.get('/desvotar', login,function(req, res){
     var bd=BD();
     bd.query("SELECT * FROM vista_votoEmpresas WHERE DNI="+session.dni,function(error,resultado,fila){
-      if(!error){
-        if(resultado.length > 0)
-          res.render('desvotar', { title:'Eliminar puntuación de las empresas',nombre:session.nombre,empresas:resultado});
-      }else{
-        res.send("Hubo un error en las empresas");
-
-      }
+      assert.ok(error,"Error en el select de vista_votoEmpresas");
+      assert.notEqual(resultado,0,"No hay ningun resultado");
+      res.render('desvotar', { title:'Eliminar puntuación de las empresas',nombre:session.nombre,empresas:resultado});
     });
 
 });
+//-----------------------------------------------------------------------------------------------------------------------------------------
+// Función post para iniciar sesión, si estas registrado
 app.post('/iniciar',function(req, res){
     var bd=BD();
     bd.query("SELECT DNI,nombre FROM USUARIOS WHERE DNI="+req.body.dni+" AND clave="+req.body.clave,function(error,resultado,fila){
-      if(!error){
-        if(resultado.length > 0){
-
-            session.dni=resultado[0].DNI;
-            session.nombre=resultado[0].nombre;
-            res.redirect(session.pagina);
-        }
-      }else{
-        res.send("Hubo un error en las empresas");
-
-      }
+      assert.ok(error,"Error en el select de usuarios");
+      assert.notEqual(resultado,0,"No hay ningun resultado");
+      session.dni=resultado[0].DNI;
+      session.nombre=resultado[0].nombre;
+      res.redirect(session.pagina);
     });
 
 });
+//-----------------------------------------------------------------------------------------------------------------------------------------
+// Función get para ver el jade login.jade
 app.get('/login', function(req, res){
   res.render('login', { title:'Iniciar sesión'});
 });
+//-----------------------------------------------------------------------------------------------------------------------------------------
+// Función get para ver el jade logout.jade
 app.get('/logout',function(req, res){
     delete session.nombre;
     delete session.dni;
     res.redirect('/');
 });
+//-----------------------------------------------------------------------------------------------------------------------------------------
+// Función post para registar el voto en la BD
 app.post('/registrarVoto', function(req, res){
-  //res.send("ID "+req.body.id+" pUNTUACION "+req.body.txtNota);
   var bd=BD();
   bd.query("INSERT INTO CALIFICACIONES (id_empresa, DNI, puntuacion) VALUES ("+req.body.id+","+session.dni+","+req.body.txtNota+")",function (error) {
       if(!error){
@@ -120,6 +123,8 @@ app.post('/registrarVoto', function(req, res){
       }
   });
 });
+//-----------------------------------------------------------------------------------------------------------------------------------------
+// Función para saber si ya has iniciado sesión o no
 function login(req,res,next){
   if( typeof session.nombre!='undefined'){
     next();
@@ -141,7 +146,7 @@ function BD(){
   return conexion;
 }
 //-----------------------------------------------------------------------------------------------------------------------------------------
-//Permite crear una empresa
+// Función post para añadir una empresa a la BD
 app.post('/addEmpresa', function(req, res){
   var objBD = BD();
   var nombre=req.body.nombre;
@@ -155,8 +160,8 @@ app.post('/addEmpresa', function(req, res){
     }
   });
 });
-
-//Permite crear un alumno
+//-----------------------------------------------------------------------------------------------------------------------------------------
+// Función post para añadir un alumno a la BD
 app.post('/addAlumno', function(req, res){
   var objBD = BD();
   var dni=req.body.dni;
