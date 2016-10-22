@@ -1,8 +1,0 @@
-extends layout
-block content
-  h1=title
-  div
-    form(action='/addEmpresa',method='post')
-      label(for='nombre')
-        input(type='text', id=nombre,name='nombre',placeholder='Nombre de la empresa',class='input')
-      button(type='submit') Incribirse
