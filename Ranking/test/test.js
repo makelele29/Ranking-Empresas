@@ -11,25 +11,30 @@ function BD(){
   return conexion;
 }
 describe("Prueba de test",function(){
-  it("Insertar",function(done){
-    var bd=BD();
-    bd.query("INSERT INTO  USUARIOS (DNI,nombre,apellidos,email,clave) values (222,'Javier','Castillo','ja@ja','222')",function (error){
-      assert.ok(!error,"Hubo un error al registar al usuario");
-      bd.end(done);
+  describe("Insertar",function(){
+    it("Insertar un alumno",function(done){
+      var bd=BD();
+      bd.query("INSERT INTO  USUARIOS (DNI,nombre,apellidos,email,clave) values (222,'Javier','Castillo','ja@ja','222')",function (error){
+        assert.ok(!error,"Hubo un error al registar al usuario");
+        bd.end(done);
+      });
     });
   });
-  it("Login",function(done){
+  describe("Login",function(){
+    it("Iniciar sesion con un usuario ya registrado",function(done){
 
-    var bd=BD();
+      var bd=BD();
 
-    bd.query("SELECT DNI,nombre FROM USUARIOS WHERE DNI=22245645 AND clave=222",function(error,resultado,fila){
+      bd.query("SELECT DNI,nombre FROM USUARIOS WHERE DNI=222 AND clave=222",function(error,resultado,fila){
 
-      assert.ok(!error,"Error en el select de usuarios");
-      assert.notEqual(resultado.length,0,"El usuario introducido no es correcto");
-      bd.end(done);
+        assert.ok(!error,"Error en el select de usuarios");
+        assert.notEqual(resultado.length,0,"El usuario introducido no es correcto");
+        bd.end(done);
+      });
+
     });
-
   });
+
 
 
 });
