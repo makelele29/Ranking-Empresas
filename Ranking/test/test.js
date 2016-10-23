@@ -20,7 +20,7 @@ function BD(){
 
       });
     });
-    it("Iniciar sesion con un usuario ya registrado",function(done){
+    it("Iniciar sesion con un usuario ya registrado",function(){
 
       var bd=BD();
 
@@ -28,7 +28,7 @@ function BD(){
 
         assert.ok(!error,"Error en el select de usuarios");
         assert.notEqual(resultado.length,0,"El usuario introducido no es correcto");
-        bd.end(done);
+
       });
 
     });
