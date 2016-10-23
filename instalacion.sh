@@ -1,7 +1,7 @@
 #!/bin/bash
 sudo apt-get update
 sudo apt-get install lamp-server^
-mysql -u root -p1  < ranking.sql
+mysql -u root -p  < ranking.sql
 sudo apt install node-jade node-express-generator
 mkdir Web
 cd Web
