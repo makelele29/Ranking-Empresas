@@ -4,3 +4,4 @@ mkdir Web
 cd Web
 cp -Rf ../Ranking/* .
 cd . && npm install
+npm install -g mocha
