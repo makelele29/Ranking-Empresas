@@ -2,9 +2,7 @@
   "name": "application-name",
   "version": "0.0.1",
   "private": true,
-  "scripts": {
-    "start": "nodejs ./bin/www"
-  },
+  
   "dependencies": {
     "express": "~4.0.0",
     "static-favicon": "~1.0.0",
@@ -19,7 +17,8 @@
     "grunt-docco": "^0.5.0"
   },
   "scripts": {
+	 "start": "nodejs ./bin/www",
     "test": "mocha test/test.js" 
 
-}
+	}
 }
