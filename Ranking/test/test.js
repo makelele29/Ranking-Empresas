@@ -23,13 +23,24 @@ describe("Prueba Test",function(){
     });
   });
   // Función para comprobar que el usuario esta loqueado
-  it("Iniciar sesion con un usuario ya registrado",function(done){
-    var bd=BD();
-    bd.connect(done);
-    bd.query("SELECT DNI,nombre FROM USUARIOS WHERE DNI=22 AND clave=222",function(error,resultado,fila){
-      assert.ok(!error,"Error en el select de usuarios");
-      assert.notEqual(resultado.length,0,"El usuario introducido no es correcto");
-      bd.end(done);
+  describe("Iniciar sesion con un usuario",function(){
+    it("Usuario registrado",function (done) {
+      var bd=BD();
+      bd.connect(done);
+      bd.query("SELECT DNI,nombre FROM USUARIOS WHERE DNI=222 AND clave=222",function(error,resultado,fila){
+        assert.ok(!error,"Error en el select de usuarios");
+        assert.notEqual(resultado.length,0,"El usuario introducido no es correcto");
+        bd.end(done);
+      });
+    });
+    it("Usuario no registrado",function (done) {
+      var bd=BD();
+      bd.connect(done);
+      bd.query("SELECT DNI,nombre FROM USUARIOS WHERE DNI=22 AND clave=222",function(error,resultado,fila){
+        assert.ok(!error,"Error en el select de usuarios");
+        assert.Equal(resultado.length,0,"El usuario introducido no es correcto");
+        bd.end(done);
+      });
     });
   });
 });
