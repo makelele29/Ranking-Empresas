@@ -37,10 +37,10 @@ app.get('/clasificacion', function(req, res){
   var bd=BD();
   bd.query("SELECT nombre,puntuacion FROM vista_Calificaciones",function(error,resultado,fila){
 		assert.ok(error,"Error en el select de vista_calificaciones");
-    assert.notEqual(resultado,0,"No hay ningun resultado");
+    assert.notEqual(resultado.length,0,"No hay ningun resultado");
     res.render('clasificacion', { title:'Ranking de empresas' ,empresas:resultado});
 
-    }
+
   });
 
 });
@@ -68,7 +68,7 @@ app.get('/votar', login,function(req, res){
     var bd=BD();
     bd.query("SELECT id_empresa,nombre FROM EMPRESAS",function(error,resultado,fila){
       assert.ok(error,"Error en el select de empresas");
-      assert.notEqual(resultado,0,"No hay ningun resultado");
+      assert.notEqual(resultado.length,0,"No hay ningun resultado");
       res.render('votar', { title:'Vota a tu empresa',nombre:session.nombre,empresas:resultado});
     });
 
@@ -79,7 +79,7 @@ app.get('/desvotar', login,function(req, res){
     var bd=BD();
     bd.query("SELECT * FROM vista_votoEmpresas WHERE DNI="+session.dni,function(error,resultado,fila){
       assert.ok(error,"Error en el select de vista_votoEmpresas");
-      assert.notEqual(resultado,0,"No hay ningun resultado");
+      assert.notEqual(resultado.length,0,"No hay ningun resultado");
       res.render('desvotar', { title:'Eliminar puntuación de las empresas',nombre:session.nombre,empresas:resultado});
     });
 
@@ -89,8 +89,9 @@ app.get('/desvotar', login,function(req, res){
 app.post('/iniciar',function(req, res){
     var bd=BD();
     bd.query("SELECT DNI,nombre FROM USUARIOS WHERE DNI="+req.body.dni+" AND clave="+req.body.clave,function(error,resultado,fila){
-      assert.ok(error,"Error en el select de usuarios");
-      assert.notEqual(resultado,0,"No hay ningun resultado");
+      assert.ok(!error,"Error en el select de usuarios");
+      console.log(resultado.length);
+      assert.notEqual(resultado.length,0,"No hay ningun resultado");
       session.dni=resultado[0].DNI;
       session.nombre=resultado[0].nombre;
       res.redirect(session.pagina);

@@ -1,3 +1,4 @@
+![travis.ci](https://travis-ci.org/makelele29/Ranking-Empresas.svg?branch=master)
 # Ranking-Empresas
 Repositorio para la creación de una pagina web en Node.js para calificar las empresas en las que hacen practicas los alumnos.
 ## Instalación
