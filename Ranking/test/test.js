@@ -14,7 +14,7 @@ function BD(){
 describe("Prueba de test",function(){
   it("Insertar",function(done){
     var bd=BD();
-    bd.query("INSERT INTO  USUARIOS (DNI,nombre,apellidos,email,clave) values (111,'Javier','Castillo','ja@ja','111')",function (error){
+    bd.query("INSERT INTO  USUARIOS (DNI,nombre,apellidos,email,clave) values (111,'Javier','Castillo','ja@ja','11')",function (error){
       assert.ok(!error,"Hubo un error al registar al usuario");
       bd.end(done);
     });
