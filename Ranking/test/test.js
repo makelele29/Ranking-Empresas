@@ -10,7 +10,7 @@ function BD(){
   });
   return conexion;
 }
-describe("Prueba de test",function(){
+
   describe("Insertar",function(){
     it("Insertar un alumno",function(done){
       var bd=BD();
@@ -20,6 +20,10 @@ describe("Prueba de test",function(){
       });
     });
   });
+
+
+
+
   describe("Login",function(){
     it("Iniciar sesion con un usuario ya registrado",function(done){
 
@@ -34,7 +38,3 @@ describe("Prueba de test",function(){
 
     });
   });
-
-
-
-});
