@@ -6,6 +6,7 @@ export CI_MODE=test
 mysql -uroot  < ranking.sql
 mkdir Web
 cd Web
+npm install -g express
 express
 cp -Rf ../Ranking/* .
 echo "Añadidas las carpetas"
