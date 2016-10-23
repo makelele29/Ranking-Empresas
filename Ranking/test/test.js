@@ -12,11 +12,10 @@ function BD(){
 }
 
   describe("Prueba Test",function(){
-    it("Insertar un alumno",function(done){
+    it("Insertar un alumno",function(){
       var bd=BD();
       bd.query("INSERT INTO  USUARIOS (DNI,nombre,apellidos,email,clave) values (222,'Javier','Castillo','ja@ja','222')",function (error){
         assert.ok(!error,"Hubo un error al registar al usuario");
-        bd.end(done);
         it("Login",function(){
           it("Iniciar sesion con un usuario ya registrado",function(done){
 
