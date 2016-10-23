@@ -3,6 +3,5 @@ node_js:
   - "0.11.16"
   - "4.6.1"
   - "6.9.0"
-sudo: required
-
-
+before_install: test.sh
+install: npm test
