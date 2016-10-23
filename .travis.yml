@@ -3,6 +3,19 @@ node_js:
   - "0.11.16"
   - "4.6.1"
   - "6.9.0"
+sudo: false
 before_install:
   - ./test.sh
 script: npm test
+matrix:
+  allow_failures:
+    - php: "7.0"
+      env: CI_MODE=selenium
+  fast_finish: true
+  include:
+    - php: "7.0"
+      env: CI_MODE=selenium
+    - php: "7.0"
+      env: CI_MODE=release
+    - php: "7.0"
+env: CI_MODE=docs
