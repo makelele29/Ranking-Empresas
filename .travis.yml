@@ -12,4 +12,4 @@ addons:
     - mysql-client-core-5.6
     - mysql-client-5.6
 before_install: ./test.sh
-install: npm test
+install: cd Web/ && npm test
