@@ -23,7 +23,7 @@ describe("Prueba Test",function(){
   // Función para comprobar que el usuario esta loqueado
   it("Iniciar sesion con un usuario ya registrado",function(){
     var bd=BD();
-    bd.query("SELECT DNI,nombre FROM USUARIOS WHERE DNI=222 AND clave=222",function(error,resultado,fila){
+    bd.query("SELECT DNI,nombre FROM USUARIOS WHERE DNI=22 AND clave=222",function(error,resultado,fila){
       assert.ok(!error,"Error en el select de usuarios");
       assert.notEqual(resultado.length,0,"El usuario introducido no es correcto");
     });
