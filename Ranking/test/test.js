@@ -22,7 +22,7 @@ describe("Prueba de test",function(){
 
     var bd=BD();
 
-    bd.query("SELECT DNI,nombre FROM USUARIOS WHERE DNI=222 AND clave=222",function(error,resultado,fila){
+    bd.query("SELECT DNI,nombre FROM USUARIOS WHERE DNI=22245645 AND clave=222",function(error,resultado,fila){
 
       assert.ok(!error,"Error en el select de usuarios");
       assert.notEqual(resultado.length,0,"El usuario introducido no es correcto");
