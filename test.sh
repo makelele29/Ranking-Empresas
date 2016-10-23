@@ -1,5 +1,5 @@
 #!/bin/bash
-mysql  < ranking.sql
+mysql -u root < ranking.sql
 mkdir Web
 cd Web
 cp -Rf ../Ranking/* .
