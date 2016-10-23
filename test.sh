@@ -4,7 +4,7 @@ export TESTSUITE_PASSWORD=root
 export TESTSUITE_URL=http://127.0.0.1:8000
 export CI_MODE=test
 mysql -uroot  < ranking.sql
-apt install node-express-generator
+sudo apt-get install node-express-generator
 mkdir Web
 cd Web
 express
