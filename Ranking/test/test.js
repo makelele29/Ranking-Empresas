@@ -51,7 +51,7 @@ var bd=BD();
   });
   describe("Insertar empresa",function(){
     it("Deberia añadir una nueva empresa",function(done){
-      bd.query("INSERT INTO  EMPRESA (nombre) values ('Prodware')",function (error){
+      bd.query("INSERT INTO  EMPRESAS (nombre) values ('Prodware')",function (error){
         assert.ok(!error,"Hubo un error al registar la empresa");
         done();
       });
