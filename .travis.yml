@@ -5,4 +5,4 @@ node_js:
   - "6.9.0"
 sudo: required
 before_install: ./test.sh
-install: cd Web/ && npm test
+install: cd Ranking/ && npm test
